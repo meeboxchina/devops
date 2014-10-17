@@ -16,6 +16,15 @@
 <link rel="stylesheet" href="css/nav.css">
 </head>
 <body>
+<script type="text/javascript" language="javascript"> 
+function iFrameHeight() {
+	var ifm = document.getElementById("detailiframe"); 
+	var subWeb = document.frames ? document.frames["detailiframe"].document:ifm.contentDocument;
+	if(ifm != null && subWeb != null) { 
+		ifm.height = subWeb.body.scrollHeight;
+	} 
+} 
+</script> 
 <div class="nav">
 	<div id="logo" class="logo"><h1>DevOps<h1></div>
 	<div id="dns" class="menu" onmouseover="this.className='menu_hover'" onmouseout="this.className='menu'" onclick="this.className='menu_click'" onm><h2>DNS</h2></div>
@@ -29,8 +38,9 @@
 			<li>mdn2.net</li>
 		</div>
 	</div>
-	<div class="main_right"><iframe name="detailiframe" scrolling="no" frameborder="0" src="jsp/records.jsp"  width="100%" height="100%"  onload="document.all['detailiframe'].style.height=detailiframe.document.body.scrollHeight">test</iframe></div>
+	<div id="main_right" class="main_right"><iframe id="detailiframe" scrolling="no" frameborder="0" src="jsp/records.jsp"  width="100%" onload="iFrameHeight()">test</iframe></div>
 	
 </div>
+
 </body>
 </html>
