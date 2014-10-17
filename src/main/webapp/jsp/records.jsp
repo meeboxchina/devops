@@ -8,7 +8,7 @@
 <title>DNS Records</title>
 <meta name="generator" content="Bluefish 2.2.5" >
 <meta name="author" content="sunyu" >
-<meta name="date" content="2014-10-17T17:56:24+0800" >
+<meta name="date" content="2014-10-17T18:30:25+0800" >
 <meta name="copyright" content="">
 <meta name="keywords" content="">
 <meta name="description" content="">
@@ -63,7 +63,7 @@
 			mx_priority = rs.getString("mx_priority");
 			
 			
-			out.print("<div class='main_right_detail_item'><div style='width=15%'>" +host + "</div><div style='width=10%'>" + type + "</div></div><div style='width=15%'>" + view +  "</div>" + data +   " " + ttl  + "</div>");
+			out.print("<div class='main_right_detail_item'><div style='width=15% float：left'>" +host + "</div><div style='width=10% float=left'>" + type + "</div><div style='width=15% float=left'>" + view + "  " +  data +   " " + ttl  +  "</div>" + "</div>");
 	}
 %> 
 

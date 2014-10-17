@@ -5,10 +5,10 @@
 <%@ page import="java.sql.*" %> 
 <html>
 <head>
-<title>Records</title>
+<title>DNS Records</title>
 <meta name="generator" content="Bluefish 2.2.5" >
 <meta name="author" content="sunyu" >
-<meta name="date" content="2014-10-17T17:55:29+0800" >
+<meta name="date" content="2014-10-17T17:56:24+0800" >
 <meta name="copyright" content="">
 <meta name="keywords" content="">
 <meta name="description" content="">
@@ -32,7 +32,12 @@
 	String pass = "bind";	
 	
 	String host;
+	String type;
+	String view;
 	String data;
+	String ttl;
+	String mx_priority;
+
 	
 	//登记JDBC驱动对象 
 	Class.forName("com.mysql.jdbc.Driver").newInstance(); 
@@ -44,16 +49,21 @@
 	sqlStmt=sqlConn.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE,java.sql.ResultSet.CONCUR_READ_ONLY); 
 	
 	//执行Sql语句 
-	String sqlQuery = "select host,data from records"; 
+	String sqlQuery = "select host,type,view,data,ttl,mx_priority from records"; 
 	
 	rs = sqlStmt.executeQuery(sqlQuery); 
 	
 	while(rs.next())
 	{
 			host = rs.getString("host");
+			type = rs.getString("type");
+			view = rs.getString("view");
 			data = rs.getString("data");
+			ttl = rs.getString("ttl");
+			mx_priority = rs.getString("mx_priority");
 			
-			out.print("<div class="main_right_detail_item">" + host + ":" data + " </div>");
+			
+			out.print("<div class='main_right_detail_item'><div style='width=15%'>" +host + "</div><div style='width=10%'>" + type + "</div><<div style='width=15%'>" + view +  "</div>" + data +   " " + ttl  + "</div>");
 	}
 %> 
 
