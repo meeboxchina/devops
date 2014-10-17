@@ -63,7 +63,7 @@
 			mx_priority = rs.getString("mx_priority");
 			
 			
-			out.print("<div class='main_right_detail_item'><div style='width：15%；float：left'>" +host + "</div><div style='width：10%；float：left'>" + type + "</div><div style='width：15%；float：left'>" + view + "  " +  data +   " " + ttl  +  "</div>" + "</div>");
+			out.print("<div class='main_right_detail_item'><div style='width:10%;float:left;'>" +host + "</div><div style='width:10%;float:left;text-align:center;'>" + type + "</div><div style='width:10%;float:left;text-align:center;'>" + view + "</div><div style='width:30%;float:left;text-align:center;'>" +  data +  "</div><div style='width:10%;float:left;text-align:center;'>" + ttl  +  "</div>" + "</div>");
 	}
 %> 
 
