@@ -1,0 +1,174 @@
+body {
+  background-color : #ffffff;
+  font-family : sans-serif;
+  margin: 0px;
+  
+}
+
+h1 {
+	font-size: 20px;
+	
+}
+h2 {
+	font-size: 16px;
+	font-weight: normal;
+}
+
+li {
+	list-style-type: none;
+	padding-left: 100px;
+	margin: 10px;
+}
+
+.main {
+	background-color : #ffffff;
+	font-family : sans-serif;
+ 	width: 100%;
+
+}
+
+
+.nav {
+	#background-color: #f8f8f8;
+	border-color: #e7e7e7;
+	height: 50px;
+	width: 100%;
+	border-bottom-style: solid;
+	border-bottom-width: 1px;
+	margin: 0px;
+	background-color: #F8F8F8;
+}
+
+.logo {
+	float: left;
+	width: 150px;
+	height: 50px;
+	margin-left: 10px;
+	text-align: center;
+	vertical-align: middle;
+	##margin-left:auto; 
+	#margin-right:auto;
+		background-color: #F8F8F8;
+	
+}
+
+.menu {
+	float: left;
+	width: 100px;
+	height: 100%;
+	margin-top: 0px;
+	text-align: center;
+	vertical-align: middle;	
+	color: grey;
+}
+
+.menu_hover {
+	float: left;
+	width: 100px;
+	height: 100%;
+	margin-top: 0px;
+	text-align: center;
+	vertical-align: middle;	
+	color: black;
+}
+
+.menu_click {
+	float: left;
+	width: 100px;
+	height: 100%;
+	margin-top: 0px;
+	text-align: center;
+	vertical-align: middle;	
+	color: black;
+	background-color: #eee;
+}
+
+.form {
+	float: right;
+	width: 100px;
+	height: 100%;
+	margin-top: 0px;
+	margin-right: 20px;
+	text-align: center;
+	vertical-align: middle;	
+	color: grey;
+}
+.main_left {
+	float: left;
+	width: 26%;
+	padding-left: 5%;
+	padding-top: 20px;
+}
+
+
+
+.main_left_title {
+	float: left;
+	width: 100%;
+	height: 30px;
+	padding-top: 10px;
+	border-color: #e7e7e7;
+	border-style: solid;
+	border-width: 1px;
+	padding-right: 10px;
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	background-color: #eee;
+	border: 1px solid #888;
+	text-align: center;
+	vertical-align: middle;	
+}
+
+.main_left_list {
+	float: left;
+	width: 100%;
+	
+	border-style: solid;
+	padding-right: 10px;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	background-color: #FFFFFF;
+	border: 1px solid #888;
+	border-top-width: 0px;
+	text-align: left;
+	vertical-align: middle;	
+}
+
+.main_right {
+	float: right;
+	width: 60%;
+	padding-right: 5%;
+	padding-top: 20px;
+	height: 98%;
+}
+
+
+.main_right_detail {
+	float: left;
+	width: 95%;
+	border-radius: 4px;
+	background-color: #FFFFFF;
+	border: 1px solid #888;	
+	#margin-left: 5%;
+	#margin-right: 5%;
+	#padding-top: 10px;
+	
+}
+
+.main_right_detail_item {
+	float: left;
+	width: 96%;
+	height: 30px;
+	background-color: #FFFFFF;
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+	border-bottom-color: #e7e7e7;
+	vertical-align: middle;	
+	text-align: left;
+	padding: 0px;
+	margin-top: 5px;
+	margin-left: 2%;
+	margin-right: 2%;
+	
+	#padding-left: 10px;
+}
