@@ -21,6 +21,14 @@
 </head>
 <body>
 <div class="main_right_detail">
+  <div class='main_right_detail_item'>
+	<div style='width:10%;float:left;text-align:center;'>主机记录</div>
+	<div style='width:10%;float:left;text-align:center;'>记录类型</div>
+	<div style='width:10%;float:left;text-align:center;'>视图/线路类型</div>
+	<div style='width:30%;float:left;text-align:center;'>记录值</div>
+	<div style='width:10%;float:left;text-align:center;'>TTL</div>
+  </div>
+	
 <%
 	java.sql.Connection sqlConn; //数据库连接对象 
 	java.sql.Statement sqlStmt; //语句对象 
@@ -63,7 +71,7 @@
 			mx_priority = rs.getString("mx_priority");
 			
 			
-			out.print("<div class='main_right_detail_item'><div style='width:10%;float:left;'>" +host + "</div><div style='width:10%;float:left;text-align:center;'>" + type + "</div><div style='width:10%;float:left;text-align:center;'>" + view + "</div><div style='width:30%;float:left;text-align:center;'>" +  data +  "</div><div style='width:10%;float:left;text-align:center;'>" + ttl  +  "</div>" + "</div>");
+			out.print("<div class='main_right_detail_item'><div style='width:10%;float:left;text-align:center;'>" +host + "</div><div style='width:10%;float:left;text-align:center;'>" + type + "</div><div style='width:10%;float:left;text-align:center;'>" + view + "</div><div style='width:30%;float:left;text-align:center;'>" +  data +  "</div><div style='width:10%;float:left;text-align:center;'>" + ttl  +  "</div>" + "</div>");
 	}
 %> 
 
