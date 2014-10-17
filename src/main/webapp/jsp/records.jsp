@@ -34,12 +34,19 @@ function add(){
 	view = document.getElementById("view").value;
 	data = document.getElementById("data").value;
 	ttl = document.getElementById("ttl").value;
-	domainzone = document.getElementById("domainzone").value;
+	zone = document.getElementById("zone").value;
 	if( host=="" || data=="" || ttl==""){
 		alert("输入错误，请重新输入");
 	}else{
-		alert(host + data + domainzone);
+		record.action = "add.jsp";  
+		record.submit();   
 	}
+}
+
+function del(id){
+	document.getElementById("id").value = id;
+	record.action = "del.jsp";  
+	record.submit();   
 }
 
 </script>
@@ -67,7 +74,7 @@ function add(){
 	sqlStmt=sqlConn.createStatement(java.sql.ResultSet.TYPE_SCROLL_INSENSITIVE,java.sql.ResultSet.CONCUR_READ_ONLY); 
 	
 	//执行Sql语句 
-	String sqlQuery = "select count(*) as count from records where zone='" + zone + "' and type<>'SOA'" ; 
+	String sqlQuery = "select count(*) as count from records where zone='" + zone + "' and type<>'SOA' order by type" ; 
 	
 	rs = sqlStmt.executeQuery(sqlQuery); 
 	
@@ -78,9 +85,10 @@ function add(){
 		count = 0;
 	}
 %> 
+<form id="record" method="post">
 <div class="main_right_detail">
   <div id="count" class='main_right_detail_head'>
-    <div style='width:35%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><% out.print(zone);%> 共有<% out.print(count); %>条记录</div>
+    <div style='width:35%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><strong><% out.print(zone);%></strong> 共有<% out.print(count); %>条记录</div>
     <div style='width:12%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'></div>
     <div style='width:12%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><a href="javascript:showAdd();" style="color:grey">添加记录</a></div>
     <div style='width:12%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><a href="javascript:showAdd();" style="color:grey">暂停</a></div>
@@ -89,7 +97,8 @@ function add(){
   </div>
 
   <div class='main_right_detail_item'>
-  	<input name="domainzone" id="domainzone" type="hidden" value="<% out.print(zone); %>">
+  	<input name="zone" id="zone" type="hidden" value="<% out.print(zone); %>">
+  	<input name="id" id="id" type="hidden" value="0">
 	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; font-weight:bold;line-height:30px;'>主机记录</div>
 	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; font-weight:bold;line-height:30px;'>记录类型</div>
 	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; font-weight:bold;line-height:30px;'>线路类型</div>
@@ -99,9 +108,9 @@ function add(){
   </div>
   
   <div id="add" class='main_right_detail_add' style="display:none;background-color:#f8f8f8">
-	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="host" size="10" style="text-align:center;" /></div>
+	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="host" name="host" size="10" style="text-align:center;" /></div>
 	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'>
-	  <select id="type"> 
+	  <select id="type" name="type"> 
 		<option value="A">A</option> 
 		<option value="CNAME">CNAME</option>
 		<option value="MX">MX</option>
@@ -110,7 +119,7 @@ function add(){
 	  </select>
 	</div>
 	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'>
-	  <select id="view"> 
+	  <select id="view" name="view"> 
 		<option value="any">默认</option> 
 		<option value="telcom">电信</option>
 		<option value="unicom">联通</option>
@@ -118,8 +127,8 @@ function add(){
 		<option value="cernet">教育网</option> 
 	  </select>
 	</div>
-	<div style='width:45%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="data" size="45" style="text-align:center;" /></div>
-	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="ttl" size="10" value="600" style="text-align:center;" /></div>
+	<div style='width:45%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="data" name="data" size="45" style="text-align:center;" /></div>
+	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="ttl" name="ttl" size="10" value="600" style="text-align:center;" /></div>
 	<div style='width:15%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><a href="javascript:add();" style="color:black; text-decoration:none">提交</a> | <a href="javascript:hideAdd();" style="color:black; text-decoration:none">取消</a></div>
   </div>
 	
@@ -134,7 +143,7 @@ function add(){
 
 	
 	//执行Sql语句 
-	sqlQuery = "select id,host,type,view,data,ttl,mx_priority from records where zone='" + zone + "' and type<>'SOA'"; 
+	sqlQuery = "select id,host,type,view,data,ttl,mx_priority from records where zone='" + zone + "' and type<>'SOA' order by id"; 
 	
 	rs = sqlStmt.executeQuery(sqlQuery); 
 	
@@ -154,7 +163,7 @@ function add(){
 			out.print("<div style='width:10%;float:left;text-align:center;line-height:30px;'>" + view + "</div>");
 			out.print("<div style='width:45%;float:left;text-align:center;line-height:30px;'>" +  data +  "</div>");
 			out.print("<div style='width:10%;float:left;text-align:center;line-height:30px;'>" + ttl  +  "</div>");
-			out.print("<div style='width:15%;float:left;text-align:center;line-height:30px;'><a href='javascript:delete(" + id +")'; style='color:black; text-decoration:none'>删除</a></div>");
+			out.print("<div style='width:15%;float:left;text-align:center;line-height:30px;'><a href='javascript:del(" + id +")'; style='color:black; text-decoration:none'>删除</a></div>");
 			out.print("</div>");
 	}
 	
@@ -162,7 +171,7 @@ function add(){
 %> 
 
 </div>	
-	
+</form>
 </body>
 </html>
 

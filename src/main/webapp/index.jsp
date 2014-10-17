@@ -77,9 +77,17 @@ function iframe(zone) {
 				out.print("<li><a href='javascript:iframe(\"" + zone +"\")'; style='color:black; text-decoration:none'>" + zone + "</a></li>");
 			}
 		%>
+		  
+		</div>
+		<div class="main_left_add" style="margin:0px">
+			<div float="left" width="100%" height="30px"  class="main_left_add_item" style="border-top:none; line-height:30px; color:grey" >add</div>
+			<!--  
+			<div float="left" width="100%" height="50px" class="main_left_add_item"  style="line-height:30px; margin:0px;"><input id="zone" name="zone" size="45" style="padding:0px;text-align:center; height:22px" ></div>
+			<div display="none" float="left" class="main_left_add_item"><a href="javascript:add();" style="line-height:30px;color:black; text-decoration:none">submit</a> | <a href="javascript:hideAdd();" style="color:black; text-decoration:none">cancle</a></div>
+			-->
 		</div>
 	</div>
-	<div id="main_right" class="main_right"><iframe id="detailiframe" scrolling="no" frameborder="0" src="jsp/records.jsp?zone=<% out.print(zone); %>" width="100%" onload="iFrameHeight()">test</iframe></div>
+	<div id="main_right" class="main_right"><iframe id="detailiframe" scrolling="no" frameborder="0" src="jsp/records.jsp?zone=<% out.print(zone); %>" width="100%" onload="iFrameHeight()"></iframe></div>
 	
 </div>
 

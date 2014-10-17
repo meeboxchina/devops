@@ -8,24 +8,18 @@
 </head>
 <body>
 <%
-	String operation = request.getParameter("operation");
-	String add = "add";
-	String del = "del";
+
 	String zone = request.getParameter("zone");
-	String id   = request.getParameter("id");
 	String host = request.getParameter("host");
 	String data = request.getParameter("data");
 	String type = request.getParameter("type");
 	String view = request.getParameter("view");
 	String ttl  = request.getParameter("ttl");
 	
-	out.print(operation);
-	
-	java.sql.Connection sqlConn; //数据库连接对象 
-	java.sql.Statement sqlStmt; //语句对象 
-	java.sql.ResultSet rs; //结果集对象 
-	
-	boolean result;
+	java.sql.Connection sqlConn; 
+	java.sql.Statement sqlStmt;
+	java.sql.ResultSet rs; 
+	int result;
 	
 	String dbhost = "meeboxchina.mysql.rds.aliyuncs.com";
 	String database = "bind";
@@ -34,33 +28,22 @@
 	
 	int count;
 	
-	//登记JDBC驱动对象 
 	Class.forName("com.mysql.jdbc.Driver").newInstance(); 
 	
-	//连接数据库 
 	sqlConn= java.sql.DriverManager.getConnection("jdbc:mysql://"+dbhost+"/"+database,user,pass); 
 	
-	//创建语句对象 
 	sqlStmt=sqlConn.createStatement(); 
 	
+	String sqlInsert = "insert into records (zone,host,data,type,view,ttl) values ('" + zone + "','" + host + "','" + data + "','" + type + "','" + view + "'," + ttl + ")" ; 
 	
-	if(operation == add ){
-		String sqlInsert = "insert into records (zone,host,data,type,view,ttl) values ('" + zone + "','" + host + "','" + data + "','" + type + "','" + view + "'," + ttl + ")" ; 
-		result = sqlStmt.execute(sqlInsert); 
-	}else if(operation == "del"){
-		out.print(zone);
-		String sqlDel = "delete from records where id=" + id  + " and zone='" + zone + "'";
-		result = sqlStmt.execute(sqlDel);
-		if(result){
-			out.print("删除失败");
-		}else{
-			out.print("删除成功");
-		}
-	}else{
-		out.print(operation);
-		out.print("error");
-	}
+	result = sqlStmt.executeUpdate(sqlInsert); 
+	
+	out.print(result);
+	
+	
 	sqlConn.close();
+	
+	response.sendRedirect("records.jsp?zone=" + zone );
 %>
 </body>
 </html>
