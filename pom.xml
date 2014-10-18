@@ -17,10 +17,23 @@
     <dependency>
       <groupId>mysql</groupId>
 	  <artifactId>mysql-connector-java</artifactId>
-	<version>5.1.16</version>
-</dependency>
+	  <version>5.1.16</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>devops</finalName>
+    <plugins>
+    	<plugin>
+    		<groupId>org.apache.tomcat.maven</groupId>
+    		<artifactId>tomcat7-maven-plugin</artifactId>
+    		<version>2.0</version>
+    		<configuration>
+            	<url>http://114.80.90.122:8080/manager/text</url>
+            	<server>tomcat</server>
+            	<username>admin</username>  
+        		<password>madhousedns</password>  
+        	</configuration>
+    	</plugin>
+    </plugins>
   </build>
 </project>
