@@ -57,10 +57,10 @@ function del(id){
 	java.sql.Statement sqlStmt; //语句对象 
 	java.sql.ResultSet rs; //结果集对象 
 
-	String dbhost = "meeboxchina.mysql.rds.aliyuncs.com";
+	String dbhost = "10.10.48.13";
 	String database = "bind";
 	String user = "bind";
-	String pass = "madhousedns";	
+	String pass = "bind";	
 	
 	int count;
 	
@@ -108,7 +108,7 @@ function del(id){
   </div>
   
   <div id="add" class='main_right_detail_add' style="display:none;background-color:#f8f8f8">
-	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="host" name="host" size="10" style="text-align:center;" /></div>
+	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="host" name="host" size="6" style="text-align:center;" /></div>
 	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'>
 	  <select id="type" name="type"> 
 		<option value="A">A</option> 
@@ -127,8 +127,8 @@ function del(id){
 		<option value="cernet">教育网</option> 
 	  </select>
 	</div>
-	<div style='width:45%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="data" name="data" size="45" style="text-align:center;" /></div>
-	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="ttl" name="ttl" size="10" value="600" style="text-align:center;" /></div>
+	<div style='width:45%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="data" name="data" size="40" style="text-align:center;" /></div>
+	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="ttl" name="ttl" size="5" value="600" style="text-align:center;" /></div>
 	<div style='width:15%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><a href="javascript:add();" style="color:black; text-decoration:none">提交</a> | <a href="javascript:hideAdd();" style="color:black; text-decoration:none">取消</a></div>
   </div>
 	
@@ -141,10 +141,11 @@ function del(id){
 	String ttl;
 	String mx_priority;
 
+	String viewname;
 	
 	//执行Sql语句 
-	sqlQuery = "select id,host,type,view,data,ttl,mx_priority from records where zone='" + zone + "' and type<>'SOA' order by id"; 
-	
+	sqlQuery = "select id,host,type,view,data,ttl,mx_priority from records where zone='" + zone + "' and type<>'SOA' order by type,id"; 
+
 	rs = sqlStmt.executeQuery(sqlQuery); 
 	
 	while(rs.next())
@@ -156,7 +157,18 @@ function del(id){
 			data = rs.getString("data");
 			ttl = rs.getString("ttl");
 			mx_priority = rs.getString("mx_priority");
-			
+
+			/*
+			switch (view) {
+				case "any": viewname="默认";
+				case "telcom": viewname="电信";
+				case "unicom": viewname="联通";
+				case "cmcc": viewname="移动";
+				case "cernet": viewname="教育网";
+				default: viewname="默认";
+			}
+			*/
+
 			out.print("<div class='main_right_detail_item'>");
 			out.print("<div style='width:10%;float:left;text-align:center;line-height:30px;'>" + host + "</div>");
 			out.print("<div style='width:10%;float:left;text-align:center;line-height:30px;'>" + type + "</div>");
