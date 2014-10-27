@@ -6,8 +6,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
 import java.util.Properties;
 
 public class DBUtil {
@@ -22,6 +27,8 @@ public class DBUtil {
 	private Connection conn = null;
 	private Statement stmt = null;
 	private ResultSet rs = null;
+	
+	private List<HashMap> result = new ArrayList();
 	
 	
 	public DBUtil() throws IOException {
@@ -48,9 +55,9 @@ public class DBUtil {
 		System.out.print(host);
 	}
 	
-	public void BuildConn() {
+	public void buildConn() {
 		try {
-			Class.forName(driver).getInterfaces();
+			Class.forName("com.mysql.jdbc.Driver").getInterfaces();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,7 +70,8 @@ public class DBUtil {
 			e.printStackTrace();
 		}
 		try {
-			stmt=conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			//stmt=conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
+			stmt=conn.createStatement();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,6 +86,33 @@ public class DBUtil {
 			
 			e.printStackTrace();
 			return false;
+		}
+	}
+	
+	public List<HashMap> query(String querySql){
+		buildConn();
+		try {
+			rs = stmt.executeQuery(querySql);
+			
+			while(rs.next()){
+				ResultSetMetaData matadata = rs.getMetaData(); 
+				HashMap record = new HashMap();
+				for(int i=1; i<=matadata.getColumnCount(); i++){
+					String key =  matadata.getColumnName(i);
+					String value = rs.getString(i);
+					if(value==null){
+						value="";
+					}
+					
+					record.put(key, value);
+				}
+				result.add(record);
+			}
+			return this.result;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		}
 		
 	}
@@ -108,7 +143,7 @@ public class DBUtil {
 	}
 
 	public Connection getConn() {
-		BuildConn();
+		buildConn();
 		return conn;
 	}
 

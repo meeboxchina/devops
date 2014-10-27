@@ -39,21 +39,22 @@ public class DNServlet extends HttpServlet {
 		String ttl  =  request.getParameter("ttl");
 		String mx_priority =  request.getParameter("mx_priority");
 		
-		
-		
-		Record record = new Record();
-		
-		if(type==null){
+		if(type==null || host==null || zone==null || data==null || view==null || ttl==null
+				|| type.equals("") || host.equals("") || zone.equals("") || data.equals("") || view.equals("") || ttl.equals("")){
 			out.print("input error");
 			out.close();
+		}else{
+			Record record = new Record();
+			if(type.equals("A") || type.equals("NS") || type.equals("CNAME") || type.equals("AAAA")){
+				out.print(record.addRecord(type, host, zone, data, view, Integer.parseInt(ttl)));
+				out.close();
+			}else if(type.equals("MX")){
+				
+			}
 		}
 		
 		
-		if(type.equals("A") && ttl!=null ){
-			
-			out.print(record.addRecord(type, host, zone, data, view, Integer.parseInt(ttl)));
-			out.close();
-		}
+		
 		
 	}
 

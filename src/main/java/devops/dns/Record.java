@@ -2,6 +2,8 @@ package devops.dns;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.util.HashMap;
+import java.util.List;
 
 import devops.common.DBUtil;
 
@@ -41,6 +43,21 @@ public class Record {
 		
 		return db.insert(sql);
 	}
+	
+	public List<HashMap> getZoneRecords(String zone) throws IOException{
+		DBUtil db = new DBUtil();
+		String query = "select * from records where zone='" + zone + "'";
+		List<HashMap> result = db.query(query);
+		return result;
+	}
+	/*
+	public boolean addRecord(String zone) throws IOException{
+		DBUtil db = new DBUtil();
+		String sql = "select * from records where zone='" + zone + "'"; 
+		
+		return db.query(sql);
+	}
+	*/
 
 	/**
 	 * @return the id
