@@ -3,11 +3,12 @@ package devops.dns;
 import java.io.IOException;
 import java.sql.Connection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import devops.common.DBUtil;
 
-public class Record {
+public class Zone {
 	private int id;
 	private String zone;
 	private String host;
@@ -25,39 +26,51 @@ public class Record {
 	private String primary_ns;
 	private int data_count;
 	
-	public Record() {
+	public Zone() {
 		// TODO Auto-generated constructor stub
 	}
 	
-
-	public int addRecord(String type, String host, String zone, String data, String view, int ttl) throws IOException{
+	public int addZone(String zone) throws IOException{
 		DBUtil db = new DBUtil();
-		String sql = "insert into records (zone,host,data,type,view,ttl,primary_ns,resp_person) values ('" 
-				+ zone + "','" 
-				+ host + "','" 
-				+ data + "','" 
-				+ type + "','" 
-				+ view + "'," 
-				+ ttl + ",'ns1.mgogo.com.','root." 
-				+ zone + ".')" ; 
+		String query = "select count(*) as count from records where zone='" + zone + "'";
+		List<HashMap> list = db.query(query);
+		Iterator it = list.iterator();
+		if(it.hasNext()){
+			HashMap hashmap = (HashMap) it.next();
+			Integer count = Integer.parseInt(hashmap.get("count").toString());
+			if(count>=1){
+				return 0;
+			}
+		}
+		
+		String sql = "insert into records (zone,host,type,data,ttl,view,mx_priority,priority,refresh,retry,expire,minimum,serial,resp_person,primary_ns,data_count) values ('" 
+				+ zone + "','"            //zone
+				+ "@','"                  //host
+				+ "SOA','"                //type
+				+ "ns1.mgogo.com.',"      //data 
+				+ "3600,'"                //ttl 
+				+ "any',"                 //any 
+				+ "null,"                 //mx_priority
+				+ "255,"                  //priority
+				+ "3600,"                 //refresh
+				+ "3600,"                 //retry
+				+ "86400,"                //expire
+				+ "10,"                   //minium
+				+ "2008082700,'"          //serial
+				+ "root." + zone + ".','" //resp_person
+				+ "ns1.mgogo.com.',"      //primary_ns
+				+ "0)";					  //data_count
 		
 		return db.update(sql);
 	}
 	
-	public List<HashMap> getZoneRecords(String zone) throws IOException{
+	public int delZone(String zone) throws IOException{
 		DBUtil db = new DBUtil();
-		String query = "select * from records where zone='" + zone + "'";
-		List<HashMap> result = db.query(query);
-		return result;
-	}
-	/*
-	public boolean addRecord(String zone) throws IOException{
-		DBUtil db = new DBUtil();
-		String sql = "select * from records where zone='" + zone + "'"; 
+		String sql = "delete from records where zone='" + zone + "'";
 		
-		return db.query(sql);
+		return db.update(sql);
 	}
-	*/
+	
 
 	/**
 	 * @return the id

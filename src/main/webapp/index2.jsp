@@ -18,6 +18,7 @@
 <body>
 <script type="text/javascript" language="javascript"> 
 
+var xmlhttp;
 
 function getZoneRecords(){
 	xmlhttp = new XMLHttpRequest();

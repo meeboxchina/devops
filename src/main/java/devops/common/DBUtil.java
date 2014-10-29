@@ -78,14 +78,14 @@ public class DBUtil {
 		}
 	}
 	
-	public boolean insert(String sql){
+	public int update(String sql){
+		buildConn();
 		try {
-			return stmt.execute(sql);
+			return stmt.executeUpdate(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			
 			e.printStackTrace();
-			return false;
+			return 0;
 		}
 	}
 	
