@@ -47,10 +47,10 @@ function iframe(zone) {
 			java.sql.Statement sqlStmt; //语句对象 
 			java.sql.ResultSet rs; //结果集对象 
 
-			String dbhost = "meeboxchina.mysql.rds.aliyuncs.com";
+			String dbhost = "10.10.48.13";
 			String database = "bind";
 			String user = "bind";
-			String pass = "madhousedns";	
+			String pass = "bind";	
 	
 			String zone = "null";
 			int count = 0;

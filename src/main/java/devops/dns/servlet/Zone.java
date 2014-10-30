@@ -1,6 +1,8 @@
-package devops.dns.web;
+package devops.dns.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,16 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Records
+ * Servlet implementation class Zone
  */
-@WebServlet({ "/Records", "/records", "/devops/records" })
-public class Records extends HttpServlet {
+@WebServlet({ "/Zone", "/zone" })
+public class Zone extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
     /**
-     * Default constructor. 
+     * @see HttpServlet#HttpServlet()
      */
-    public Records() {
+    public Zone() {
+        super();
         // TODO Auto-generated constructor stub
     }
 
@@ -26,6 +29,26 @@ public class Records extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		PrintWriter out = response.getWriter();
+		String action = request.getParameter("action");
+		String zone = request.getParameter("zone");
+		if(action==null || zone==null){
+			out.print("Parameters Error");
+		}else if(action.equals("add") && zone!=""){
+			devops.dns.Zone newZone = new devops.dns.Zone();
+			if(newZone.addZone(zone)>0){
+				out.print("Add Successfully!");
+			}else{
+				out.print("Add Failed");
+			}
+		}else if(action.equals("del") && zone!=""){
+			devops.dns.Zone newZone = new devops.dns.Zone();
+			if(newZone.delZone(zone)>0){
+				out.print("Delete Successfully!");
+			}else{
+				out.print("Delete Failed");
+			}
+		}
 		
 	}
 

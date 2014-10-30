@@ -21,10 +21,10 @@
 	java.sql.ResultSet rs; 
 	int result;
 	
-	String dbhost = "meeboxchina.mysql.rds.aliyuncs.com";
+	String dbhost = "10.10.48.13";
 	String database = "bind";
 	String user = "bind";
-	String pass = "madhousedns";	
+	String pass = "bind";	
 	
 	int count;
 	
@@ -34,7 +34,7 @@
 	
 	sqlStmt=sqlConn.createStatement(); 
 	
-	String sqlInsert = "insert into records (zone,host,data,type,view,ttl) values ('" + zone + "','" + host + "','" + data + "','" + type + "','" + view + "'," + ttl + ")" ; 
+	String sqlInsert = "insert into records (zone,host,data,type,view,ttl,primary_ns,resp_person) values ('" + zone + "','" + host + "','" + data + "','" + type + "','" + view + "'," + ttl + ",'ns1.mgogo.com.','root." + zone + ".')" ; 
 	
 	result = sqlStmt.executeUpdate(sqlInsert); 
 	
