@@ -71,6 +71,13 @@ public class Zone {
 		return db.update(sql);
 	}
 	
+	public List<HashMap> getList() throws IOException{
+		DBUtil db = new DBUtil();
+		String sql = "select distinct zone from records";
+		
+		return db.query(sql);
+	}
+	
 
 	/**
 	 * @return the id

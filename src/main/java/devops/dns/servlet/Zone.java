@@ -2,12 +2,18 @@ package devops.dns.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Servlet implementation class Zone
@@ -32,22 +38,52 @@ public class Zone extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String action = request.getParameter("action");
 		String zone = request.getParameter("zone");
-		if(action==null || zone==null){
+		if(action==null){
 			out.print("Parameters Error");
 		}else if(action.equals("add") && zone!=""){
 			devops.dns.Zone newZone = new devops.dns.Zone();
 			if(newZone.addZone(zone)>0){
-				out.print("Add Successfully!");
+				JSONObject json = new JSONObject();
+				json.put("status", "ok");
+				json.put("message", "add zone");
+				json.put("data", zone);
+				out.println(json.toString());
 			}else{
-				out.print("Add Failed");
+				JSONObject json = new JSONObject();
+				json.put("status", "error");
+				json.put("message", "add zone");
+				json.put("data", zone);
+				out.println(json.toString());
 			}
 		}else if(action.equals("del") && zone!=""){
 			devops.dns.Zone newZone = new devops.dns.Zone();
 			if(newZone.delZone(zone)>0){
-				out.print("Delete Successfully!");
+				JSONObject json = new JSONObject();
+				json.put("status", "ok");
+				json.put("message", "delete zone");
+				json.put("data", "");
+				out.println(json.toString());
 			}else{
-				out.print("Delete Failed");
+				JSONObject json = new JSONObject();
+				json.put("status", "error");
+				json.put("message", "delete zone");
+				json.put("data", "");
+				out.println(json.toString());
 			}
+		}else if(action.equals("getlist")){
+			devops.dns.Zone newZone = new devops.dns.Zone();
+			List<HashMap> zonelist = newZone.getList();
+			Iterator it = zonelist.iterator();
+			JSONObject json = new JSONObject();
+			JSONArray jsonarray = new JSONArray();
+			while(it.hasNext()){
+				String zoneName = ((HashMap)it.next()).get("zone").toString();
+				jsonarray.put(zoneName);
+			}
+			json.put("status", "ok");
+			json.put("message", "get list");
+			json.put("data", jsonarray);
+			out.println(json.toString());
 		}
 		
 	}
@@ -57,6 +93,55 @@ public class Zone extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		PrintWriter out = response.getWriter();
+		String action = request.getParameter("action");
+		String zone = request.getParameter("zone");
+		if(action==null){
+			out.print("Parameters Error");
+		}else if(action.equals("add") && zone!=""){
+			devops.dns.Zone newZone = new devops.dns.Zone();
+			if(newZone.addZone(zone)>0){
+				JSONObject json = new JSONObject();
+				json.put("status", "ok");
+				json.put("message", "add zone");
+				json.put("data", zone);
+				out.println(json.toString());
+			}else{
+				JSONObject json = new JSONObject();
+				json.put("status", "error");
+				json.put("message", "add zone");
+				json.put("data", zone);
+				out.println(json.toString());
+			}
+		}else if(action.equals("del") && zone!=""){
+			devops.dns.Zone newZone = new devops.dns.Zone();
+			if(newZone.delZone(zone)>0){
+				JSONObject json = new JSONObject();
+				json.put("status", "ok");
+				json.put("message", "delete zone");
+				json.put("data", "");
+				out.println(json.toString());
+			}else{
+				JSONObject json = new JSONObject();
+				json.put("status", "error");
+				json.put("message", "delete zone");
+				json.put("data", "");
+				out.println(json.toString());
+			}
+		}else if(action.equals("getlist")){
+			devops.dns.Zone newZone = new devops.dns.Zone();
+			List<HashMap> zonelist = newZone.getList();
+			Iterator it = zonelist.iterator();
+			JSONObject json = new JSONObject();
+			JSONArray jsonarray = new JSONArray();
+			while(it.hasNext()){
+				String zoneName = ((HashMap)it.next()).get("zone").toString();
+				jsonarray.put(zoneName);
+			}
+			json.put("status", "ok");
+			json.put("message", "get list");
+			json.put("data", jsonarray);
+			out.println(json.toString());
+		}
 	}
-
 }
