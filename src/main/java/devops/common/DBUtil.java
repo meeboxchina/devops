@@ -34,12 +34,12 @@ public class DBUtil {
 	public DBUtil() throws IOException {
 		// TODO Auto-generated constructor stub
 		String path = DBUtil.class.getResource("/").getPath();
-		String websiteURL = (path.replace("/classes", "") + "jdbc.properties");
-		System.out.print(websiteURL);
+		String jdbc = (path.replace("/classes", "") + "jdbc.properties");
+		System.out.print(jdbc);
 		
 		FileInputStream fis = null;
 		try {
-			fis = new FileInputStream(websiteURL);
+			fis = new FileInputStream(jdbc);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,7 +71,7 @@ public class DBUtil {
 		}
 		try {
 			//stmt=conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-			stmt=conn.createStatement();
+			stmt = conn.createStatement();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
