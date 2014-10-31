@@ -82,11 +82,10 @@ public class Record extends HttpServlet {
 			jsonrecord.put("data", recordHM.get("data"));
 			jsonrecord.put("ttl", recordHM.get("ttl"));
 			jsonrecord.put("type", recordHM.get("type"));
+			jsonrecord.put("mx_priority", recordHM.get("mx_priority"));
+			jsonrecord.put("priority", recordHM.get("priority"));
 			
 			jsonarray.put(jsonrecord);
-			
-			
-			
 		}
 		json.put("data", jsonarray);
 		
