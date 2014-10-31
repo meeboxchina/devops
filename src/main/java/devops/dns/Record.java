@@ -44,9 +44,32 @@ public class Record {
 		return db.update(sql);
 	}
 	
+	public int delRecord(String zone, String host, int id) throws IOException{
+		DBUtil db = new DBUtil();
+		String sql = "delete from records where " 
+				+ "zone='" + zone + "' and " 
+				+ "host='" + host + "' and "
+				+ "id=" + id; 
+		
+		return db.update(sql);
+	}
+	
+	public int updateRecord(String zone, String host, String type, int id, String data, String view, int ttl) throws IOException{
+		DBUtil db = new DBUtil();
+		String sql = "update records set "
+				+ "host='" + host + "',"
+				+ "type='" + type + "',"
+				+ "view='" + view + "',"
+				+ "data='" + data + "'," 
+				+ "ttl=" + ttl 
+				+ " where zone='" + zone + "' and id=" + id;
+		System.out.print(sql);
+		return db.update(sql);
+	}
+	
 	public List<HashMap> getZoneRecords(String zone) throws IOException{
 		DBUtil db = new DBUtil();
-		String query = "select * from records where zone='" + zone + "'";
+		String query = "select * from records where zone='" + zone + "' and type<>'SOA' order by type";
 		List<HashMap> result = db.query(query);
 		return result;
 	}

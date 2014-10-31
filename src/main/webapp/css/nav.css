@@ -262,3 +262,21 @@ li {
 	font-size: 10px;
 
 }
+
+.main_right_detail_delete {
+	float: left;
+
+	height: 30px;
+	background-color: #FFFFFF;
+	border-bottom-style: dashed;
+	border-bottom-width: 1px;
+	border-bottom-color: #e7e7e7;
+	vertical-align: middle;	
+	text-align: left;
+	padding: 0px;
+
+	
+	#padding-left: 10px;
+	font-size: 10px;
+
+}

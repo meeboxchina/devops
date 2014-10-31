@@ -43,7 +43,7 @@
 	</dependency>
   </dependencies>
   <build>
-    <finalName>devops</finalName>
+    <finalName>deployprod</finalName>
     <plugins>
     	<plugin>
     		<groupId>org.apache.tomcat.maven</groupId>
@@ -54,7 +54,7 @@
             	<server>tomcat</server>
             	 <update>true</update>
             	<username>tomcat</username>  
-        		<password>madhouse</password>  
+        		<password>tomcat</password>  
         	</configuration>
     	</plugin>
     </plugins>
