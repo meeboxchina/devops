@@ -64,40 +64,6 @@ public class Zone {
 		return db.update(sql);
 	}
 	
-	public int addZone(String zone, int ttl, int refresh, int retry, int expire, int minimum, int serial, String resp_person, String primary_ns) throws IOException{
-		DBUtil db = new DBUtil();
-		String query = "select count(*) as count from records where zone='" + zone + "'";
-		List<HashMap> list = db.query(query);
-		Iterator it = list.iterator();
-		if(it.hasNext()){
-			HashMap hashmap = (HashMap) it.next();
-			Integer count = Integer.parseInt(hashmap.get("count").toString());
-			if(count>=1){
-				return 0;
-			}
-		}
-		
-		String sql = "insert into records (zone,host,type,data,ttl,view,mx_priority,priority,refresh,retry,expire,minimum,serial,resp_person,primary_ns,data_count) values ('" 
-				+ zone + "','"            //zone
-				+ "@','"                  //host
-				+ "SOA','"                //type
-				+ "ns1.mgogo.com.',"      //data 
-				+ ttl + ",'"               //ttl 
-				+ "any',"                 //any 
-				+ "null,"                 //mx_priority
-				+ "255,"                  //priority
-				+ refresh + ","                 //refresh
-				+ retry + ","                 //retry
-				+ expire + ","                //expire
-				+ minimum + ","                   //minium
-				+ serial + ",'"          //serial
-				+ resp_person + "." + zone + ".','" //resp_person
-				+ primary_ns + "',"      //primary_ns
-				+ "0)";					  //data_count
-		
-		return db.update(sql);
-	}
-	
 	public int delZone(String zone) throws IOException{
 		DBUtil db = new DBUtil();
 		String sql = "delete from records where zone='" + zone + "'";

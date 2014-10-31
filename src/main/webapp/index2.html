@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta name="generator" content="Bluefish 2.2.5" >
+<meta name="author" content="sunyu" >
+<meta name="date" content="2014-10-30T19:17:21+0800" >
+<meta name="copyright" content="">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
+<meta http-equiv="content-style-type" content="text/css">
+<meta http-equiv="expires" content="0">
+<link rel="stylesheet" href="css/nav.css">
+</head>
+<body>
+<script type="text/javascript" language="javascript"> 
+
+var zonelist;
+var zones;
+var zoneListHTML;
+
+function showNewZone(){
+	document.getElementById('newzone').style.display="block"; 
+	document.getElementById('zonelist').style.display="none";  	
+}
+
+function showZoneList(){
+	document.getElementById('list').innerHTML=zoneListHTML; 
+	document.getElementById('newzone').style.display="none"; 
+	document.getElementById('zonelist').style.display="block";   	
+}
+
+
+function getZoneList() {
+	zonelist = new XMLHttpRequest();
+	zonelist.onreadystatechange=callback;
+	zonelist.open("POST","http://127.0.0.1:8080/devops/zone",true);
+	zonelist.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
+	zonelist.send("action=getlist");
+}
+
+function callback(){
+	if(zonelist.readyState==4){
+		if(zonelist.status==200){
+			eval("var zonesResponse =" + zonelist.responseText); 
+			
+			zoneListHTML = "";
+			for(i=0; i<zonesResponse.data.length; i++){
+				zoneListHTML += "<li>" + zonesResponse.data[i] + "</li>";
+			}
+			showZoneList();
+		}else{		
+			alert("got failed 1");
+		}
+	}
+}
+
+var xmlhttp;
+function addZone(){
+	var zone = document.getElementById('newzone.zone').value;
+	var ttl = document.getElementById('newzone.ttl').value;
+	var expire = document.getElementById('newzone.expire').value;
+	var refresh = document.getElementById('newzone.refresh').value;
+	var retry = document.getElementById('newzone.retry').value;
+	var serial = document.getElementById('newzone.serial').value;
+	var minimum = document.getElementById('newzone.minimum').value;
+	var resp_person = document.getElementById('newzone.resp_person').value;
+	var primary_ns = document.getElementById('newzone.primary_ns').value;
+
+	if(zone==null || ttl==""){
+		alert("参数错误");	
+	}
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.onreadystatechange=cbAddZone;
+	xmlhttp.open("POST","http://127.0.0.1:8080/devops/zone",true);
+	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
+	xmlhttp.send(
+		"action=add" +
+		"&zone=" + zone +
+		"&ttl=" + ttl +
+		"&expire=" + expire +
+		"&refresh=" + refresh +
+		"&retry=" + retry +
+		"&serial=" + serial +
+		"&minimum=" + minimum +
+		"&resp_person=" + resp_person +
+		"&primary_ns=" + primary_ns
+		);
+}
+
+function cbAddZone(){
+	if(xmlhttp.readyState==4){
+		if(xmlhttp.status==200){
+			alert("Add Successfully.");
+			getZoneList();
+		}else{
+			alert("Add Failed, Please check and try again.");
+		}
+	}
+}
+
+getZoneList();
+</script> 
+<div class="nav">
+	<div id="logo" class="logo"><h1>DevOps</h1></div>
+	<div id="dns" class="menu" onmouseover="this.className='menu_hover'" onmouseout="this.className='menu'" onclick="this.className='menu_click'"><h2>DNS</h2></div>
+	<div id="dns" class="menu" onmouseover="this.className='menu_hover'" onmouseout="this.className='menu'" onclick="this.className='menu_click'"><h2>AutoMation</h2></div>
+</div>
+<div id="main" class="main">
+	<div id="main_left"  class="main_left">
+		<div id="title" class="main_left_title"> <a href="javascript:getZoneList()" style="">ZoneList</a>  |  <a href="javascript:showNewZone()" style="">Add Zone</a></div>
+		<div id="zonelist" class="main_left_list">
+			<div id="list">
+				<li></li>
+			</div>		
+		</div>
+		<div class="main_left_add" style="margin:0px">
+			<div id="newzone"  name="newzone" float="left" width="100%" height="100%" class="main_left_newzone"  style="line-height:30px; margin:0px; display:none">
+				<div width="100%" class="main_left_newzone_item">
+					<div style="float:left;width:40%;text-align:right;">Zone:</div>
+					<div style="float:left;width:55%;"><input id="newzone.zone" name="newzone.zone" style="padding:0px;text-align:center; height:22px; width:90%" value="" ></div>
+				</div>
+				<div width="100%" class="main_left_newzone_item">
+					<div style="float:left;width:40%;text-align:right;">TTL:</div>
+					<div style="float:left;width:55%;"><input id="newzone.ttl" name="newzone.ttl" style="padding:0px;text-align:center; height:22px; width:90%" value="3600" ></div>
+				</div>
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Refresh:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.refresh" name="newzone.refresh" style="padding:0px;text-align:center; height:22px; width:90%" value="3600" ></div>
+				</div>
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Retry:</div>
+					<div style="float:left;width:55%"><input id="newzone.retry" name="newzone.retry" style="padding:0px;text-align:center; height:22px; width:90%"  value="3600"></div>
+				</div>
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Expire:</div>
+					<div style="float:left;width:55%"><input id="newzone.expire" name="zone" style="padding:0px;text-align:center; height:22px; width:90%"  value="86400"></div>
+				</div>	
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Minimum:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.minimum" name="newzone.minimum" style="padding:0px;text-align:center; height:22px; width:90%"  value="10"></div>
+				</div>					
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Serial:</div>
+					<div style="float:left;width:55%"><input id="newzone.serial" name="newzone.serial" style="padding:0px;text-align:center; height:22px; width:90%"  value="2008082700"></div>
+				</div>
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Resp_person:</div>
+					<div style="float:left;width:55%"><input id="newzone.resp_person" name="newzone.resp_person" style="padding:0px;text-align:center; height:22px; width:90%" value="root"></div>
+				</div>	
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Primary_ns:</div>
+					<div style="float:left;width:55%"><input id="newzone.primary_ns" name="newzone.primary_ns" style="padding:0px;text-align:center; height:22px; width:90%"  value="ns1.mgogo.com."></div>
+				</div>	
+				<div width="100%">
+					<div style="float:left;width:100%;text-align:center;margin-top:10px"><a href="javascript:addZone()">Submit</a></div>
+				</div>						
+			</div>
+		</div>
+	</div>
+	<div id="main_right" class="main_right">
+		<div class="main_right_detail">
+  <div id="count" class='main_right_detail_head'>
+    <div style='width:35%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><strong><% out.print(zone);%></strong> 共有<% out.print(count); %>条记录</div>
+    <div style='width:12%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'></div>
+    <div style='width:12%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><a href="javascript:showAdd();" style="color:grey">添加记录</a></div>
+    <div style='width:12%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><a href="javascript:showAdd();" style="color:grey">暂停</a></div>
+    <div style='width:12%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><a href="javascript:showAdd();" style="color:grey">启用</a></div>
+    <div style='width:12%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><a href="javascript:showAdd();" style="color:grey">删除</a></div>
+  </div>
+
+  <div class='main_right_detail_item'>
+  	<input name="zone" id="zone" type="hidden" value="<% out.print(zone); %>">
+  	<input name="id" id="id" type="hidden" value="0">
+	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; font-weight:bold;line-height:30px;'>主机记录</div>
+	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; font-weight:bold;line-height:30px;'>记录类型</div>
+	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; font-weight:bold;line-height:30px;'>线路类型</div>
+	<div style='width:45%;float:left;text-align:center;vertical-align: middle; height:100%; font-weight:bold;line-height:30px;'>记录值</div>
+	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; font-weight:bold;line-height:30px;'>TTL</div>
+	<div style='width:15%;float:left;text-align:center;vertical-align: middle; height:100%; font-weight:bold;line-height:30px;'>操作</div>
+  </div>
+  
+  <div id="add" class='main_right_detail_add' style="display:none;background-color:#f8f8f8">
+	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="host" name="host" size="6" style="text-align:center;" /></div>
+	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'>
+	  <select id="type" name="type"> 
+		<option value="A">A</option> 
+		<option value="CNAME">CNAME</option>
+		<option value="MX">MX</option>
+		<option value="NS">NS</option>
+		<option value="AAAA">AAAA</option> 
+	  </select>
+	</div>
+	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'>
+	  <select id="view" name="view"> 
+		<option value="any">默认</option> 
+		<option value="telcom">电信</option>
+		<option value="unicom">联通</option>
+		<option value="cmcc">移动</option>
+		<option value="cernet">教育网</option> 
+	  </select>
+	</div>
+	<div style='width:45%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="data" name="data" size="40" style="text-align:center;" /></div>
+	<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id="ttl" name="ttl" size="5" value="600" style="text-align:center;" /></div>
+	<div style='width:15%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><a href="javascript:add();" style="color:black; text-decoration:none">提交</a> | <a href="javascript:hideAdd();" style="color:black; text-decoration:none">取消</a></div>
+  </div>
+	
+
+
+</div>	
+	</div>
+</div>
+</body>
+</html>

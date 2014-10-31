@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta name="generator" content="Bluefish 2.2.5" >
+<meta name="author" content="sunyu" >
+<meta name="date" content="2014-10-30T19:14:37+0800" >
+<meta name="copyright" content="">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
+<meta http-equiv="content-style-type" content="text/css">
+<meta http-equiv="expires" content="0">
+<link rel="stylesheet" href="css/nav.css">
+</head>
+<body>
+<script type="text/javascript" language="javascript"> 
+
+function showNewZone(){
+	document.getElementById('newzone').style.display="block"; 
+	document.getElementById('zonelist').style.display="none";  	
+}
+
+function showZoneList(){
+	document.getElementById('newzone').style.display="none"; 
+	document.getElementById('zonelist').style.display="block";   	
+}
+
+function getZoneList() {
+	var zonelist = new XMLHttpRequest();
+	zonelist.open("GET","/devops/zone",true);
+	zonelist.send("action=getlist");
+	if(zonelist.readyState=4 && zonelist.status=200){
+		//alert("Add Successfully.");
+		showZoneList();
+	}else{
+		alert("Got Failed");
+	}
+}
+
+var xmlhttp;
+function addZone(){
+	var zone = document.getElementById('newzone.zone').value;
+	var ns1 = document.getElementById('newzone.ns1').value;
+	var ns2 = document.getElementById('newzone.ns2').value;
+	var ns3 = document.getElementById('newzone.ns3').value;
+	var ns4 = document.getElementById('newzone.ns4').value;
+	var expire = document.getElementById('newzone.expire').value;
+	var refresh = document.getElementById('newzone.refresh').value;
+	var serial = document.getElementById('newzone.serial').value;
+	var minimum = document.getElementById('newzone.minimum').value;
+	var resp_person = document.getElementById('newzone.resp_person').value;
+	var primary_ns = document.getElementById('newzone.primary_ns').value;
+
+	if(zone==null || ns1==""){
+		alert("参数错误");	
+	}
+	xmlhttp = new XMLHttpRequest();
+	xmlhttp.open("GET","/devops/zone",true);
+	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
+	xmlhttp.send(
+		"action=add"
+		"&zone=" + zone +
+		"&ns1=" + ns1 +
+		"&ns2=" + ns2 +
+		"&ns3=" + ns3 +
+		"&ns4=" + ns4 +
+		"&expire=" + expire +
+		"&refresh=" + refresh +
+		"&serial=" + serial +
+		"&minimum=" + minimum +
+		"&resp_person=" + resp_person +
+		"&primary_ns=" + primary_ns
+		);
+		
+	if(xmlhttp.readyState=4 && xmlhttp.status=200){
+		alert("Add Successfully.");
+		showZoneList();
+	}else{
+		alert("Add Failed, Please check and try again.");
+	}
+}
+
+</script> 
+<div class="nav">
+	<div id="logo" class="logo"><h1>DevOps<h1></div>
+	<div id="dns" class="menu" onmouseover="this.className='menu_hover'" onmouseout="this.className='menu'" onclick="this.className='menu_click'" onm><h2>DNS</h2></div>
+	<div id="dns" class="menu" onmouseover="this.className='menu_hover'" onmouseout="this.className='menu'" onclick="this.className='menu_click'" onm><h2>AutoMation</h2></div>
+</div>
+<div id="main" class="main">
+	<div id="main_left"  class="main_left">
+		<div id="title" class="main_left_title"> <a href="javascript:showZoneList()" style="">ZoneList</a>  |  <a href="javascript:showNewZone()" style="">Add Zone</a></div>
+		<div id="zonelist" class="main_left_list">
+			<div id="list">
+				<li>airwaveone.net</li>
+				<li>mdn2.net</li>
+			</div>		
+		</div>
+		<div class="main_left_add" style="margin:0px">
+			<div id="newzone"  name="newzone" float="left" width="100%" height="100%" class="main_left_newzone"  style="line-height:30px; margin:0px; display:none">
+				<div width="100%" class="main_left_newzone_item">
+					<div style="float:left;width:40%;text-align:right;">Zone:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.zone" name="newzone.zone" style="padding:0px;text-align:center; height:22px; width:90%" ></div>
+				</div>
+				<div width="100%" class="main_left_newzone_item">
+					<div style="float:left;width:40%;text-align:right;">NS1:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.ns1" name="newzone.ns1" style="padding:0px;text-align:center; height:22px; width:90%" value="ns1.mgogo.com." ></div>
+				</div>
+				<div width="100%" class="main_left_newzone_item">
+					<div style="float:left;width:40%;text-align:right;">NS2:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.ns2" name="newzone.ns2" style="padding:0px;text-align:center; height:22px; width:90%" value="ns2.mgogo.com." ></div>
+				</div>
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">NS3:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.ns3" name="newzone.ns3" style="padding:0px;text-align:center; height:22px; width:90%" ></div>
+				</div>
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">NS4:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.ns4" name="newzone.ns4" style="padding:0px;text-align:center; height:22px; width:90%" ></div>
+				</div>
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Refresh:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.refresh" name="newzone.refresh" style="padding:0px;text-align:center; height:22px; width:90%" value="3600" ></div>
+				</div>
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Retry:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.retry" name="newzone.retry" style="padding:0px;text-align:center; height:22px; width:90%"  value="3600"></div>
+				</div>
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Expire:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.expire" name="zone" style="padding:0px;text-align:center; height:22px; width:90%"  value="86400"></div>
+				</div>	
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Minimum:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.minimum" name="newzone.minimum" style="padding:0px;text-align:center; height:22px; width:90%"  value="10"></div>
+				</div>					
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Serial:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.serial" name="newzone.serial" style="padding:0px;text-align:center; height:22px; width:90%"  value="2008082700"></div>
+				</div>
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Resp_person:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.resp_person" name="newzone.resp_person" style="padding:0px;text-align:center; height:22px; width:90%" value="root"></div>
+				</div>	
+				<div width="100%">
+					<div style="float:left;width:40%;text-align:right;">Primary_ns:</div>
+					<div <div style="float:left;width:55%"><input id="newzone.primary_ns" name="newzone.primary_ns" style="padding:0px;text-align:center; height:22px; width:90%"  value="ns1.mgogo.com."></div>
+				</div>	
+				<div width="100%">
+					<div style="float:left;width:100%;text-align:center;margin-top:10px"><a href="javascript:addZone()">Submit</a></div>
+				</div>						
+			</div>
+		</div>
+	</div>
+	<div id="main_right" class="main_right"></div>
+</div>
+</body>
+</html>

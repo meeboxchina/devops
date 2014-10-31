@@ -98,8 +98,16 @@ public class Zone extends HttpServlet {
 		if(action==null){
 			out.print("Parameters Error");
 		}else if(action.equals("add") && zone!=""){
+			int ttl = Integer.parseInt(request.getParameter("ttl"));
+			int refresh = Integer.parseInt(request.getParameter("refresh"));
+			int retry = Integer.parseInt(request.getParameter("retry"));
+			int expire = Integer.parseInt(request.getParameter("expire"));
+			int minimum = Integer.parseInt(request.getParameter("minimum"));
+			int serial = Integer.parseInt(request.getParameter("serial"));
+			String resp_person = request.getParameter("resp_person");
+			String primary_ns = request.getParameter("primary_ns");
 			devops.dns.Zone newZone = new devops.dns.Zone();
-			if(newZone.addZone(zone)>0){
+			if(newZone.addZone(zone,ttl,refresh,retry,expire,minimum,serial,resp_person,primary_ns)>0){
 				JSONObject json = new JSONObject();
 				json.put("status", "ok");
 				json.put("message", "add zone");
