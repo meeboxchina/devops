@@ -41,6 +41,11 @@
 		<artifactId>json</artifactId>
 		<version>20140107</version>
 	</dependency>
+	<dependency>
+		<groupId>commons-beanutils</groupId>
+		<artifactId>commons-beanutils</artifactId>
+		<version>1.8.3</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>deployprod</finalName>
@@ -54,7 +59,7 @@
             	<server>tomcat</server>
             	 <update>true</update>
             	<username>tomcat</username>  
-        		<password>tomcat</password>  
+        		<password>madhouse</password>  
         	</configuration>
     	</plugin>
     </plugins>

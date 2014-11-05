@@ -37,7 +37,7 @@ function showZoneList(){
 function getZoneList() {
 	zonelist = new XMLHttpRequest();
 	zonelist.onreadystatechange=callback;
-	zonelist.open("POST","http://127.0.0.1:8080/devops/zone",true);
+	zonelist.open("POST","/devops/zone",true);
 	zonelist.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
 	zonelist.send("action=getlist");
 }
@@ -75,7 +75,7 @@ function addZone(){
 	}
 	xmlhttp = new XMLHttpRequest();
 	xmlhttp.onreadystatechange=cbAddZone;
-	xmlhttp.open("POST","http://127.0.0.1:8080/devops/zone",true);
+	xmlhttp.open("POST","/devops/zone",true);
 	xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
 	xmlhttp.send(
 		"action=add" +
@@ -112,7 +112,7 @@ function getRecords(zone){
 	document.getElementById('record.zone').value=zone;
 	xmlhttpRecords = new XMLHttpRequest();
 	xmlhttpRecords.onreadystatechange=cbGetRecords;
-	xmlhttpRecords.open("POST","http://127.0.0.1:8080/devops/records",true);
+	xmlhttpRecords.open("POST","/devops/records",true);
 	xmlhttpRecords.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
 	xmlhttpRecords.send(
 		"action=get" +
@@ -166,7 +166,7 @@ function addRecord(){
 	
 	xmlhttpAddRecord = new XMLHttpRequest();
 	xmlhttpAddRecord.onreadystatechange=cbAddRecord;
-	xmlhttpAddRecord.open("POST","http://127.0.0.1:8080/devops/records",true);
+	xmlhttpAddRecord.open("POST","/devops/records",true);
 	xmlhttpAddRecord.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
 	xmlhttpAddRecord.send(
 		"action=add" +
@@ -205,7 +205,7 @@ function delRecord(zone,id,host){
 		 
 	xmlhttpDelRecord = new XMLHttpRequest();
 	xmlhttpDelRecord.onreadystatechange=cbDelRecord;
-	xmlhttpDelRecord.open("POST","http://127.0.0.1:8080/devops/records",true);
+	xmlhttpDelRecord.open("POST","/devops/records",true);
 	xmlhttpDelRecord.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
 	xmlhttpDelRecord.send(
 		"action=del" +
@@ -284,7 +284,7 @@ function updateRecord(id){
 	
 	xmlhttpUpdateRecord = new XMLHttpRequest();
 	xmlhttpUpdateRecord.onreadystatechange=cbUpdateRecord;
-	xmlhttpUpdateRecord.open("POST","http://127.0.0.1:8080/devops/records",true);
+	xmlhttpUpdateRecord.open("POST","/devops/records",true);
 	xmlhttpUpdateRecord.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
 	xmlhttpUpdateRecord.send(
 		"action=update" +
