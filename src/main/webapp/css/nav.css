@@ -56,6 +56,16 @@ li {
 	
 }
 
+.user {
+	float: right;
+	width: 200px;
+	height: 30px;
+	background-color: #F8F8F8;
+	font-size: 12px;
+	text-decoration: none;
+	margin-top: 20px;
+}
+
 .menu {
 	float: left;
 	width: 100px;

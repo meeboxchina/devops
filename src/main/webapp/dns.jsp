@@ -1,10 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title></title>
 <meta name="generator" content="Bluefish 2.2.5" >
 <meta name="author" content="sunyu" >
-<meta name="date" content="2014-11-06T16:42:10+0800" >
+<meta name="date" content="2014-11-06T16:58:33+0800" >
 <meta name="copyright" content="">
 <meta name="keywords" content="">
 <meta name="description" content="">
@@ -183,7 +184,7 @@ function cbAddRecord(){
 	if(xmlhttpAddRecord.readyState==4){
 		if(xmlhttpAddRecord.status==200){
 			eval("var recordsResponse =" + xmlhttpAddRecord.responseText);
-			if(recordsResponse=="ok"){
+			if(recordsResponse="ok"){
 				alert("Add Seccessflly");
 				hideAddRecord();
 				document.getElementById("newrecord.host").value = "";
@@ -263,7 +264,7 @@ function editRecord(id){
 			+	"</select>"
 			+ "</div>"
 			+ "<div style='width:45%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id='record" + id + ".data' size='40' style='text-align:center;' value='"+data+"'></div>"
-			+ "<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id='record" + id + ".ttl' size='5' value='600' style='text-align:center;' value='"+ttl+"'></div>"
+			+ "<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><input id='record" + id + ".ttl' size='5' style='text-align:center;' value='"+ttl+"'></div>"
 			+ "<div style='width:15%;float:left;text-align:center;vertical-align: middle; height:100%; line-height:30px;'><a href='javascript:updateRecord("+id+");' style='color:black; text-decoration:none'>提交</a> | <a href='javascript:cancleEditRecord("+id+");' style='color:black; text-decoration:none'>取消</a></div>"
 			+ "</div>";
 	document.getElementById("record"+id).innerHTML=editHTML;
@@ -311,11 +312,14 @@ function cbUpdateRecord(){
 		}
 	}
 }
+
 </script> 
+<%  HttpSession s = request.getSession(); %>
 <div class="nav">
 	<div id="logo" class="logo"><h1>DevOps</h1></div>
 	<div id="dns" class="menu" onmouseover="this.className='menu_hover'" onmouseout="this.className='menu'" onclick="this.className='menu_click'"><h2>DNS</h2></div>
 	<div id="dns" class="menu" onmouseover="this.className='menu_hover'" onmouseout="this.className='menu'" onclick="this.className='menu_click'"><h2>AutoMation</h2></div>
+	<div id="user" class="user"><%=s.getAttribute("commonname")%> | <a href="/devops/logout">logout</a></div>
 </div>
 <div id="main" class="main">
 	<div id="main_left"  class="main_left">
@@ -381,7 +385,7 @@ function cbUpdateRecord(){
   		</div>
 
   		<div class='main_right_detail_item'>
-  			<input name="zone" id="zone" type="hidden" value="<% out.print(zone); %>">
+  			<input name="zone" id="zone" type="hidden" value="">
   			<input name="id" id="id" type="hidden" value="0">
 			<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; font-weight:bold;line-height:30px;'>主机记录</div>
 			<div style='width:10%;float:left;text-align:center;vertical-align: middle; height:100%; font-weight:bold;line-height:30px;'>记录类型</div>

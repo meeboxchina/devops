@@ -1,0 +1,85 @@
+
+<html>
+<head>
+<title></title>
+<meta name="generator" content="Bluefish 2.2.5" >
+<meta name="author" content="sunyu" >
+<meta name="date" content="2014-11-06T16:15:12+0800" >
+<meta name="copyright" content="">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8">
+<meta http-equiv="content-style-type" content="text/css">
+<meta http-equiv="expires" content="0">
+<link rel="stylesheet" href="css/nav.css">
+<script type="text/javascript" language="javascript"> 
+var xmlhttp;
+function login() {
+	var username = document.getElementById('username').value;
+	var password = document.getElementById('password').value;
+	if(username==""){
+		document.getElementById('message').innerHTML="用户名或密码不能为空"; 
+		document.getElementById('message').style.display="block"; 
+	}else{
+		xmlhttp = new XMLHttpRequest();
+		xmlhttp.open("POST","/devops/login",true);
+		xmlhttp.onreadystatechange=cbLogin;
+		xmlhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded");  
+		xmlhttp.send("username=" + username
+			+ "&password=" + password);
+	}
+}
+
+function cbLogin(){
+	if(xmlhttp.readyState==4){
+		if(xmlhttp.status==200){
+			eval("var recordsResponse =" + xmlhttp.responseText);
+			if(recordsResponse.status=="ok"){
+				var commonname = recordsResponse.data.commonname;
+				var locationhref = recordsResponse.data.locationhref;
+				document.getElementById('message').innerHTML="欢迎你，" + commonname + "，登录成功,请稍等"; 
+				document.getElementById('message').style.display="block";
+				window.location.href = locationhref;
+							
+			}else{
+				document.getElementById('message').innerHTML="用户名或密码错误，请重新登录"; 
+				document.getElementById('message').style.display="block";			
+			}
+		}else{		
+			document.getElementById('message').innerHTML="服务器故障，登录失败"; 
+			document.getElementById('message').style.display="block";
+		}
+	}
+}
+
+function clearMessage(){
+	document.getElementById('message').innerHTML=""; 
+	document.getElementById('message').style.display="none";	
+}
+</script> 
+</head>
+<body>
+
+<div class="nav">
+	<div id="logo" class="logo"><h1>DevOps</h1></div>
+	<div id="dns" class="menu" onmouseover="this.className='menu_hover'" onmouseout="this.className='menu'" onclick="this.className='menu_click'"><h2>DNS</h2></div>
+	<div id="dns" class="menu" onmouseover="this.className='menu_hover'" onmouseout="this.className='menu'" onclick="this.className='menu_click'"><h2>AutoMation</h2></div>
+</div>
+<div id="main" class="main">
+	<div id="main_login"  class="main_login">
+		<div id="title" class="main_left_title">登录</div>
+		<div id="zonelist" class="main_left_list">
+		<form>
+			<div id="message" style="float:left; width:100%;padding-top:20px;height:10px;color:red;display:none;font-size:12px">帐号或密码错误，请重新登录</div>	
+			<div style="float:left; width:30%; text-align:right;padding-top:20px">Account：</div><div style="float:left; width:50%;padding-top:20px"><input name="username" id="username" type="text" style="width:100%;text-align:center" onclick="javascript:clearMessage()"></div>	
+			<div style="float:left; width:30%; text-align:right;padding-top:20px">Password：</div><div style="float:left; width:50%;padding-top:20px"><input name="password" id="password" type="password" style="width:100%;text-align:center" onclick="javascript:clearMessage()"></div>	
+			<div style="float:left; width:100%;padding-top:20px"><input type="button" value="submit" style="width:40%" onclick="javascript:login()"></div>	
+			<div style="float:left; width:100%;padding-top:20px;height:10px;border-bottom: 1px solid #888"></div>	
+		</form>	
+		</div>
+	</div>
+</div>
+</body>
+</html>

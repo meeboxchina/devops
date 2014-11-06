@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.json.JSONObject;
@@ -59,13 +60,16 @@ public class Login extends HttpServlet {
 		try {
 			BeanUtils.populate(ldapuser, map);
 			if(ldapuser.authenticate()){
+				HttpSession session = request.getSession();
+				session.setAttribute("username", ldapuser.getUsername());
+				session.setAttribute("commonname", ldapuser.getCommonname());
 				json.put("status", "ok");
 				json.put("message", "login successfully");
 				JSONObject jsondata = new JSONObject();
 				
 				jsondata.put("commonname", ldapuser.getCommonname());
 				jsondata.put("mail", ldapuser.getMail());
-				jsondata.put("location", "/devops/index2.html");
+				jsondata.put("locationhref", "/devops/dns.jsp");
 				json.put("data", jsondata);
 				
 				out.print(json.toString());
@@ -74,7 +78,7 @@ public class Login extends HttpServlet {
 				json.put("message", "login failed");
 				JSONObject jsondata = new JSONObject();
 				
-				jsondata.put("location", "/devops/login.jsp");
+				jsondata.put("locationhref", "/devops/login.jsp");
 				json.put("data", jsondata);
 				
 				out.print(json.toString());
