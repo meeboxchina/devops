@@ -44,21 +44,21 @@ public class LoginFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;  
         HttpSession session = req.getSession(true);  
         System.out.print("--------------------------------------------------\n");
-        // 从session里取的用户名信息  
+        // ���session������������������������  
         String username = (String) session.getAttribute("username");  
         String   uri   =   ((HttpServletRequest)   request).getRequestURI(); 
 
-        // 判断如果没有取到用户信息,就跳转到登陆页面  
+        // ������������������������������������,������������������������  
         //if (username != null || !("".equals(username)) || uri.endsWith("login.html") ||  uri.startsWith("/devops/logout") || uri.startsWith("/devops/login") || uri.endsWith(".js") || uri.endsWith(".css")) {  
         if (username != null ){
         	chain.doFilter(request, response);  
-        }else if( uri.endsWith(".css") ||  uri.endsWith(".js") || uri.endsWith("login") || uri.endsWith("logout") || uri.endsWith("login.html")){
+        }else if( uri.endsWith(".css") ||  uri.endsWith(".js") || uri.endsWith("login") || uri.endsWith("logout") || uri.endsWith("login.html")|| uri.endsWith("login.jsp")){
         	chain.doFilter(request, response);  
         }else{  
-            // 跳转到登陆页面  
+            // ���������������������  
             //RequestDispatcher dispatcher = request.getRequestDispatcher("login.html");    
             //dispatcher.forward(request, response);    
-        	res.sendRedirect("/devops/login.html");
+        	res.sendRedirect("/devops/login.jsp");
         }  
 		
 		// pass the request along the filter chain
