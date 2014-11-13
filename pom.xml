@@ -46,6 +46,16 @@
 		<artifactId>commons-beanutils</artifactId>
 		<version>1.8.3</version>
 	</dependency>
+	<dependency>
+		<groupId>org.libvirt</groupId>
+    	<artifactId>libvirt</artifactId>
+    	<version>0.4.7</version>
+    </dependency>
+    <dependency>
+		<groupId>com.jcraft</groupId>
+		<artifactId>jsch</artifactId>
+		<version>0.1.51</version>
+	</dependency>
   </dependencies>
   <build>
     <finalName>deployprod</finalName>
