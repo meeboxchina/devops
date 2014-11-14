@@ -42,10 +42,10 @@ public class LDAPUser {
 	public LdapContext getConnectionFromPool() throws NamingException{
 		Hashtable env = new Hashtable();
 		env.put(Context.INITIAL_CONTEXT_FACTORY, "com.sun.jndi.ldap.LdapCtxFactory");
-		env.put(Context.PROVIDER_URL, "ldap://114.80.90.108:389");
+		env.put(Context.PROVIDER_URL, "ldap://:389");
 		env.put(Context.SECURITY_AUTHENTICATION, "simple");
 		env.put(Context.SECURITY_PRINCIPAL,"cn=root,dc=madhouse,dc=cn");
-		env.put(Context.SECURITY_CREDENTIALS,"MF4C3Szm");
+		env.put(Context.SECURITY_CREDENTIALS,"");
 		
 		env.put("com.sun.jndi.ldap.connect.pool", "true");
 		env.put("java.naming.referral", "follow");
@@ -85,9 +85,9 @@ public class LDAPUser {
 					System.out.println("AttributeID=" + Attr.getID().toString());  
 					
 					String value = null;
-					// 读取属性值  
+					// ���������������  
 					for (NamingEnumeration e = Attr.getAll(); e.hasMore(); totalResults++) {  
-						String user = e.next().toString(); // 接受循环遍历读取的userPrincipalName用户属性  
+						String user = e.next().toString(); // ���������������������������userPrincipalName������������  
 						System.out.println(user);  
 						value = user;
 					}
@@ -100,9 +100,9 @@ public class LDAPUser {
 					
 				}
 				// System.out.println(" ---------------");  
-				// // 读取属性值  
+				// // ���������������  
 				// Enumeration values = Attr.getAll();  
-				// if (values != null) { // 迭代  
+				// if (values != null) { // ������  
 				// while (values.hasMoreElements()) {  
 				// System.out.println(" 2AttributeValues="  
 				// + values.nextElement());  
